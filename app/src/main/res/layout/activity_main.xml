@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/sermon_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sermon_label"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp"
+            tools:text="@string/sermon_label" />
+
+        <VideoView
+            android:id="@+id/sermon_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/sermon_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sermon_title"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

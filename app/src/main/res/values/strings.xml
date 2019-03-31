@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SANDALS CHURCH</string>
+    <string name="sermon_label">VIEW THE LATEST SERMON</string>
+    <string name="sermon_title">SERMON TITLE</string>
 </resources>
