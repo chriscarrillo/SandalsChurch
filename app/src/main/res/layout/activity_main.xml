@@ -18,21 +18,51 @@
             android:text="@string/sermon_label"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp"
-            tools:text="@string/sermon_label" />
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
-        <VideoView
-            android:id="@+id/sermon_video"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="wrap_content">
+
+            <VideoView
+                android:id="@+id/sermon_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/sermon_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@android:drawable/ic_media_play" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/sermon_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sermon_title"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <TextView
+            android:id="@+id/sermon_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <TextView
+            android:id="@+id/sermon_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
     </LinearLayout>
 
