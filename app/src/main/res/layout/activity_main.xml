@@ -15,20 +15,23 @@
             android:id="@+id/sermon_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="@string/sermon_label"
             android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp" />
+            android:textSize="24sp" />
 
         <FrameLayout
+            android:id="@+id/video_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="230dp"
+            android:background="@color/colorPrimary">
 
             <VideoView
                 android:id="@+id/sermon_video"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
 
             <ImageView
                 android:id="@+id/sermon_thumbnail"
@@ -43,29 +46,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp" />
+            android:paddingRight="16dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/sermon_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp" />
+            android:paddingRight="16dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/sermon_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:textColor="@color/colorAccent"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp" />
+            android:paddingRight="16dp"
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 

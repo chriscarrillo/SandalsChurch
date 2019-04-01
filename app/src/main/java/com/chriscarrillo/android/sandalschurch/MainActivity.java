@@ -1,13 +1,19 @@
 package com.chriscarrillo.android.sandalschurch;
 
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -67,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Picasso.get().load(response.getString("image_hd"))
+                                    .into(sermonVideoThumbnail);
+                            sermonVideo.setVideoURI(Uri.parse(response.getString("mp4_hd")));
+
                             // Set the text, thumbnail, and URI from the response
                             sermonTitle.setText(response.getString("title"));
                             sermonDescription.setText(response.getString("desc"));
@@ -81,9 +91,6 @@ public class MainActivity extends AppCompatActivity {
                                     new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
                             String finalDate = afterDateFormat.format(formattedDate);
                             sermonDate.setText(finalDate);
-
-                            Picasso.get().load(response.getString("image_sd")).into(sermonVideoThumbnail);
-                            sermonVideo.setVideoURI(Uri.parse(response.getString("mp4_hd")));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
