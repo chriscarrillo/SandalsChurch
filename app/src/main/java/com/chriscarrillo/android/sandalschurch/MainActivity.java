@@ -22,6 +22,10 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -66,12 +70,21 @@ public class MainActivity extends AppCompatActivity {
                             // Set the text, thumbnail, and URI from the response
                             sermonTitle.setText(response.getString("title"));
                             sermonDescription.setText(response.getString("desc"));
-                            sermonDate.setText(response.getString("date"));
+
+                            // Format the date into a nice, readable format
+                            String date = response.getString("date");
+                            SimpleDateFormat beforeDateFormat =
+                                    new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            Date formattedDate = beforeDateFormat.parse(date);
+
+                            SimpleDateFormat afterDateFormat =
+                                    new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+                            String finalDate = afterDateFormat.format(formattedDate);
+                            sermonDate.setText(finalDate);
+
                             Picasso.get().load(response.getString("image_sd")).into(sermonVideoThumbnail);
                             sermonVideo.setVideoURI(Uri.parse(response.getString("mp4_hd")));
-
-                            sermonTitle.setAllCaps(true);
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
