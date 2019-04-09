@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Error", error.toString());
+                        Toast.makeText(getApplicationContext(),
+                                "An error has occurred. Please make sure internet is enabled!",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
         );
