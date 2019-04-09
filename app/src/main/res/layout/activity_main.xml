@@ -24,20 +24,26 @@
         <FrameLayout
             android:id="@+id/video_layout"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary">
 
-            <VideoView
+            <bg.devlabs.fullscreenvideoview.FullscreenVideoView
                 android:id="@+id/sermon_video"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center" />
+                android:layout_height="200dp" />
 
-            <ImageView
-                android:id="@+id/sermon_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/thumbnail_description" />
+            <!--<ImageView-->
+                <!--android:id="@+id/sermon_thumbnail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:contentDescription="@string/thumbnail_description" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/play_image"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:contentDescription="@string/play_image_description"-->
+                <!--app:srcCompat="@drawable/ic_play_arrow" />-->
 
         </FrameLayout>
 

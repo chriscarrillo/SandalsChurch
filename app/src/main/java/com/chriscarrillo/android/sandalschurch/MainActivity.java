@@ -1,21 +1,13 @@
 package com.chriscarrillo.android.sandalschurch;
 
-import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.MediaController;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,45 +17,57 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import bg.devlabs.fullscreenvideoview.FullscreenVideoView;
+
 public class MainActivity extends AppCompatActivity {
+
+    /*
+        I originally had a thumbnail showing over the video. After
+        some debugging, I discovered the FullscreenVideoView library
+        sets all of the view visibilities back to visible when the
+        orientation is changed back to portrait. There is currently
+        a thumbnail feature in development.
+     */
+
+    private TextView sermonTitle;
+    private TextView sermonDescription;
+    private TextView sermonDate;
+    private FullscreenVideoView sermonVideo;
+//    private ImageView sermonVideoThumbnail;
+//    private ImageView sermonVideoPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView sermonTitle = (TextView) findViewById(R.id.sermon_title);
-        final TextView sermonDescription = (TextView) findViewById(R.id.sermon_description);
-        final TextView sermonDate = (TextView) findViewById(R.id.sermon_date);
-        final VideoView sermonVideo = (VideoView) findViewById(R.id.sermon_video);
-        final ImageView sermonVideoThumbnail = (ImageView) findViewById(R.id.sermon_thumbnail);
-
-        // Set the media controller of the video
-        MediaController mediaController = new MediaController(this);
-        sermonVideo.setMediaController(mediaController);
-        mediaController.setAnchorView(sermonVideo);
-
-        // When the video starts playing, hide the thumbnail
-        sermonVideo.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-            @Override
-            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
-                    sermonVideoThumbnail.setVisibility(View.GONE);
-                    return true;
-                }
-                return false;
-            }
-        });
+        sermonTitle = (TextView) findViewById(R.id.sermon_title);
+        sermonDescription = (TextView) findViewById(R.id.sermon_description);
+        sermonDate = (TextView) findViewById(R.id.sermon_date);
+        sermonVideo = (FullscreenVideoView) findViewById(R.id.sermon_video);
+//        sermonVideoThumbnail = (ImageView) findViewById(R.id.sermon_thumbnail);
+//        sermonVideoPlay = (ImageView) findViewById(R.id.play_image);
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://sandalschurch.com/api/latest_sermon";
+
+        /*View.OnClickListener playListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sermonVideoThumbnail.setVisibility(View.GONE);
+                sermonVideoPlay.setVisibility(View.GONE);
+                sermonVideo.enableAutoStart();
+            }
+        };
+
+        sermonVideoThumbnail.setOnClickListener(playListener);
+        sermonVideoPlay.setOnClickListener(playListener);*/
 
         JsonObjectRequest sermonRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -71,13 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(final JSONObject response) {
                         try {
-                            Picasso.get().load(response.getString("image_hd"))
-                                    .into(sermonVideoThumbnail);
-                            sermonVideo.setVideoURI(Uri.parse(response.getString("mp4_hd")));
+                            // Set the video URL
+                            sermonVideo.videoUrl(response.getString("mp4_hd"))
+                                    .addSeekBackwardButton().addSeekForwardButton();
+//                            Picasso.get().load(response.getString("image_hd"))
+//                                    .into(sermonVideoThumbnail);
 
-                            // Set the text, thumbnail, and URI from the response
                             sermonTitle.setText(response.getString("title"));
                             sermonDescription.setText(response.getString("desc"));
 
@@ -105,5 +110,16 @@ public class MainActivity extends AppCompatActivity {
         );
 
         queue.add(sermonRequest);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            sermonVideo.enableAutoStart();
+//            sermonVideoThumbnail.setVisibility(View.GONE);
+//            sermonVideoPlay.setVisibility(View.GONE);
+        }
     }
 }
