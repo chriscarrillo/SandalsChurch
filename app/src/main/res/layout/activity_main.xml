@@ -30,7 +30,7 @@
             <bg.devlabs.fullscreenvideoview.FullscreenVideoView
                 android:id="@+id/sermon_video"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="230dp" />
 
             <!--<ImageView-->
                 <!--android:id="@+id/sermon_thumbnail"-->
